@@ -1,0 +1,7 @@
+id,gender_pref,programme,subject,type
+MEE1,male,Eng,e,0
+MEE2,female,Eng,c,1
+MEE3,female,Sc,b,0
+MEE4,no_pref,Eng,c,1
+MEE5,no_pref,Sc,c,1
+MEE6,female,Eng,d,0

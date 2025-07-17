@@ -1,0 +1,8 @@
+id,gender,programme,preferred_programme,subject,type
+MOR1,male,Eng;Sc,Eng,c,1
+MOR2,male,Eng;Sc,Sc,-,1
+MOR3,male,Eng;Sc,Eng,c,1
+MOR4,male,Eng;Sc,Sc,b;c,0
+MOR5,female,Eng,Eng,c,0
+MOR6,female,-,-,-,1
+MOR7,female,Eng;Sc,Sc,a;c,0
