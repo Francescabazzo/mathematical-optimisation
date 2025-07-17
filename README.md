@@ -29,8 +29,8 @@ This repository implements and evaluates several algorithms for solving the ment
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/mentor-matching.git
-cd mentor-matching
+git clone https://github.com/framcescabazzo/mathematicalotpimisation.git
+cd matemathicaloptimisation
 ```
 
 ### 2. Install dependencies
@@ -52,7 +52,7 @@ pip install pandas numpy matplotlib
 This script runs a small example using the provided datasets in `data/`. It computes and prints:
 
 - Matchings using LP1, LP2, RBi, and RBii
-- Total, mean, and minimum scores (`R^W`, `R̄`, `R_min`)
+- Total, mean, and minimum scores 
 - Computation time for each algorithm
 - A final summary table
 
@@ -66,7 +66,7 @@ python test.py
 
 ### 📊 Run `numerical_experiments.py` — Large-Scale Performance
 
-This script evaluates **12 algorithms** (6 LP variants and 6 rule-based heuristics) across **1000 replications** on large datasets (default: 250 mentees and 250 mentors).
+This script evaluates **12 algorithms** (6 LP variants and 6 rule-based heuristics) across **100 replications** on small, medium and large datasets.
 
 It computes the **mean matching score** for each algorithm and provides a summary table (mean, median, std deviation).
 
@@ -85,8 +85,8 @@ python numerical_experiments.py
 This script tests the **scalability** of 4 key algorithms (LP1, LP2, RBi, RBii) by increasing dataset size (e.g., 10, 50, 100, 500, 1000).
 
 It computes and plots:
-- Total matching score (`R^W`)
-- Mean score per mentee (`R̄`)
+- Total matching score 
+- Mean score per mentee 
 - Computation time vs dataset size
 
 To run:
@@ -100,6 +100,9 @@ It will generate:
 - `scalability_times.png`
 - `scalability_scores.png`
 - `scalability_mean_scores.png`
+
+⚠️ **Note:** This script is computationally intensive and can take **several minutes** to complete.
+
 
 ---
 
