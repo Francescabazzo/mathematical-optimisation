@@ -1,6 +1,11 @@
 # Mentor-Mentee Matching Algorithms
+_Project for the Mathematical Optimisation Exam
 
-This repository implements and evaluates several algorithms for solving the mentor-mentee matching problem, including:
+
+## About this Project
+
+This project was developed as part of the course "Mathematical Optimisation" (Master’s Degree of Computer Engineering, University of Trieste).  
+It focuses on implementing and comparing different matching algorithms for mentor-mentee assignments, including:
 
 - **Linear Programming** (LP1 and LP2)
 - **Rule-Based Heuristics** (RBi and RBii)
@@ -11,7 +16,7 @@ This repository implements and evaluates several algorithms for solving the ment
 ## 📁 Project Structure
 
 ```
-📦mentor-matching/
+📦mathematicaloptimisation/
 ├── data/
 │   ├── mentees_se.csv           # Small example mentees dataset
 │   └── mentors_se.csv           # Small example mentors dataset
