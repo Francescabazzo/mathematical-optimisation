@@ -124,4 +124,4 @@ It will generate:
 
 This project is based on methodologies inspired by the paper:
 
-> *"A Framework for Matching Mentees and Mentors in Technology Mentorship Programs."*
+> *Marshall, S. E., & Mohaghegh, M. (2025). Comparison of a rule-based heuristic and a linear programming model for assigning mentees and mentors in a women in technology mentoring programme. Computers & Operations Research, 107002.*
