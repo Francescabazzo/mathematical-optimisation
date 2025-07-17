@@ -1,6 +1,7 @@
 # Mentor-Mentee Matching Algorithms
-_Project for the Mathematical Optimisation Exam
+_Project for the Mathematical Optimisation Exam_
 
+---
 
 ## About this Project
 
@@ -9,7 +10,8 @@ It focuses on implementing and comparing different matching algorithms for mento
 
 - **Linear Programming** (LP1 and LP2)
 - **Rule-Based Heuristics** (RBi and RBii)
-- Scalability and performance analyses on various dataset sizes
+
+It also performs scalability and performance analysis on various dataset sizes. 
 
 ---
 
