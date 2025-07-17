@@ -18,7 +18,7 @@ It also performs scalability and performance analysis on various dataset sizes.
 ## 📁 Project Structure
 
 ```
-📦mathematicaloptimisation/
+📦mathematical-optimisation/
 ├── data/
 │   ├── mentees_se.csv           # Small example mentees dataset
 │   └── mentors_se.csv           # Small example mentors dataset
@@ -36,8 +36,8 @@ It also performs scalability and performance analysis on various dataset sizes.
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/framcescabazzo/mathematicalotpimisation.git
-cd matemathicaloptimisation
+git clone https://github.com/framcescabazzo/mathematical-optimisation.git
+cd matemathical-optimisation
 ```
 
 ### 2. Install dependencies
