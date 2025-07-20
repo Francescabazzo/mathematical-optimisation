@@ -275,12 +275,11 @@ def run_iterations(size_mentees, size_mentors, n_replications=1000):
 #   |S|=|M|=20
 run_iterations(20, 18, 100)
 
-"""#   |S|=|M|=100
+#   |S|=|M|=100
 run_iterations(100, 100, 100)
 
 #   |S|=|M|=250
-run_iterations(250, 250, 100)"""
-
+run_iterations(250, 250, 100)
 
 # ============================================
 # Summary statistics 
@@ -307,7 +306,7 @@ print("\n==== Results for SMALL dataset (|S|=20) ====")
 print(summary_small.round(3))
 
 
-"""#   MEDIUM DATASET 
+#   MEDIUM DATASET 
 
 df_medium = pd.DataFrame(results_medium)
 
@@ -338,4 +337,4 @@ summary_large = pd.DataFrame({
 summary_large = summary_large.reset_index().rename(columns={"index": "Method"})
 
 print("\n==== Results for LARGE dataset (|S|=250) ====")
-print(summary_large.round(3))"""
+print(summary_large.round(3))
