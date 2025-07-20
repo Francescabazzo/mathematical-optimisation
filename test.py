@@ -83,7 +83,7 @@ def compute_total_score(matching, index=2):
     total = sum(scores)
     return total
 
-def compute_mean_score(matching, index=2):
+def compute_mean_score(matching, n_mentees, index=2):
     """
     Compute the mean score for all mentee-mentor matchings.
 
@@ -91,6 +91,8 @@ def compute_mean_score(matching, index=2):
     ----------
     matching : list of tuples
         Each tuple represents a matching and includes the score.
+    n_mentees: int
+        Number of mentees
     index : int, optional
         Index of the score in the tuple (default is 2).
 
@@ -101,8 +103,8 @@ def compute_mean_score(matching, index=2):
     """
     scores = [match[index] for match in matching]
     total = sum(scores)
-    mean = total/len(scores) if scores else 0
-    return mean 
+    mean = total/n_mentees if scores else 0
+    return mean
 
 def compute_min_score(matching, index=2):
     """
@@ -410,12 +412,22 @@ def run_heuristic(mentees, mentors, matching_criteria, weights, steps_with_filte
             #   Create a group variable (the column is named "group_key") representing each unique 
             #   combination of the matching criteria 
             mentees_key["group_key"] = list(zip(*(mentees_key[attr if attr != "gender" else "gender_pref"] for attr in group)))
-            mentors_key["group_key"] = list(zip(*(mentors_key["preferred_programme"] if attr == "programme" else mentors_key[attr] for attr in group)))
+            mentors_key["group_key"] = list(zip(*(
+                mentors_key["preferred_programme"] if attr == "programme"
+                else mentors_key["preferred_subject"] if attr == "subject"
+                else mentors_key[attr]
+                for attr in group
+            )))
 
             #   Sort by the current matching criteria
             group_mentees = [attr if attr != "gender" else "gender_pref" for attr in group]
             mentees_key = mentees_key.sort_values(group_mentees)
-            group_mentors = [attr if attr != "programme" else "preferred_programme" for attr in group]
+            group_mentors = [
+                "preferred_programme" if attr == "programme"
+                else "preferred_subject" if attr == "subject"
+                else attr
+                for attr in group
+            ]
             mentors_key = mentors_key.sort_values(list(group_mentors))
 
             #   Add an index variable numbering the mentees and the mentors within each group 
@@ -500,7 +512,7 @@ if __name__ == "__main__":
     # --- Linear Programming (LP1) ---
     Z_LP1, matching_LP1, time_LP1 = run_linear_programming(mentees_se_df, mentors_se_df, weights_LP1)
     total_score_LP1 = compute_total_score(matching_LP1)
-    mean_score_LP1 = compute_mean_score(matching_LP1)
+    mean_score_LP1 = compute_mean_score(matching_LP1, n_mentees=6)
     min_score_LP1 = compute_min_score(matching_LP1)
     print(f"\nMethod: Linear Programming (variation 1)")
     print(f"Optimal objective value Z = {Z_LP1:.2f}")
@@ -512,7 +524,7 @@ if __name__ == "__main__":
     # --- Linear Programming (LP2) ---
     Z_LP2, matching_LP2, time_LP2 = run_linear_programming(mentees_se_df, mentors_se_df, weights_LP2)
     total_score_LP2 = compute_total_score(matching_LP2)
-    mean_score_LP2 = compute_mean_score(matching_LP2)
+    mean_score_LP2 = compute_mean_score(matching_LP2, n_mentees=6)
     min_score_LP2 = compute_min_score(matching_LP2)
     print(f"\nMethod: Linear Programming (variation 2)")
     print(f"\nOptimal objective value Z = {Z_LP2:.2f}")
@@ -529,7 +541,7 @@ if __name__ == "__main__":
         weights=weights_LP1, 
         steps_with_filtering=steps_with_filtering_1
     )
-    mean_score_h1 = compute_mean_score(matching_h1)
+    mean_score_h1 = compute_mean_score(matching_h1, n_mentees=6)
     min_score_h1 = compute_min_score(matching_h1)
     print(f"\nMethod: Rule-based heuristic (variation 1)")
     print(f"Total score R^W = {total_score_h1:.2f}")
@@ -545,7 +557,7 @@ if __name__ == "__main__":
         matching_criteria=matching_criteria_2, 
         weights=weights_LP1
     )
-    mean_score_h2 = compute_mean_score(matching_h2)
+    mean_score_h2 = compute_mean_score(matching_h2, n_mentees=6)
     min_score_h2 = compute_min_score(matching_h2)
     print(f"\nMethod: Rule-based heuristic (variation 2)")
     print(f"Total score R^W = {total_score_h2:.2f}")

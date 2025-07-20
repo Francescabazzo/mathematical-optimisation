@@ -135,19 +135,32 @@ def generate_dataset(num_mentees=100, num_mentors=100, scenario=1, save=False):
         gender = weighted_choice(mentor_gender_dist)
         type_ = weighted_choice(mentor_type_dist)
         
+        # probability that a mentor skips subject or programme
+        skip_subject = random.random() < 0.1   # 10% no subjects
+        skip_programme = random.random() < 0.05  # 5% no programme
+        
         # a mentor can have 1 or 2 programs
         num_programmes = random.choice([1,2])
-        mentor_programmes = random.sample(["CIS", "Sc", "Eng"], num_programmes)
+        mentor_programmes = random.sample(["CIS", "Sc", "Eng"], num_programmes) if not skip_programme else "-"
 
         # pick preferred programme
-        preferred_programme = mentor_programmes[0]
+        if skip_programme:
+            preferred_programme = "-"
+        else:
+            preferred_programme = mentor_programmes[0] 
         
         # for the subject, I take from all the ones defined 
         mentor_subjects = []
-        for prog in mentor_programmes:
-            mentor_subjects += random.sample(subjects[prog], k=random.choice([1,2]))
-        # remove duplicates
-        mentor_subjects = list(set(mentor_subjects))
+        if not skip_programme and not skip_subject:
+            for prog in mentor_programmes:
+                mentor_subjects += random.sample(subjects[prog], k=random.choice([1,2]))
+            # remove duplicates
+            mentor_subjects = list(set(mentor_subjects))
+            # pick preferred subject 
+            preferred_subject = random.choice(mentor_subjects)
+        else: 
+            mentor_subjects = ["-"]
+            preferred_subject = "-"
         
         mentors.append([
             mentor_id, 
@@ -155,6 +168,7 @@ def generate_dataset(num_mentees=100, num_mentors=100, scenario=1, save=False):
             ";".join(mentor_programmes), 
             preferred_programme,
             ";".join(mentor_subjects), 
+            preferred_subject,
             type_
             ])
 
@@ -162,7 +176,7 @@ def generate_dataset(num_mentees=100, num_mentors=100, scenario=1, save=False):
     #   Define the dataframes 
 
     mentees_df = pd.DataFrame(mentees, columns=["id", "gender_pref", "programme", "subject", "type"])
-    mentors_df = pd.DataFrame(mentors, columns=["id", "gender", "programme", "preferred_programme", "subject", "type"])
+    mentors_df = pd.DataFrame(mentors, columns=["id", "gender", "programme", "preferred_programme", "subject", "preferred_subject", "type"])
 
     #   If save is True, save the dataframes as cvs files in the disk 
 
@@ -177,7 +191,7 @@ def generate_dataset(num_mentees=100, num_mentors=100, scenario=1, save=False):
         # Save mentors.csv
         with open("mentors.csv", "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(["id", "gender", "programme", "preferred_program", "subject", "type"])
+            writer.writerow(["id", "gender", "programme", "preferred_program", "subject", "preferred_subject", "type"])
             writer.writerows(mentors)
 
         print("Files mentees.csv and mentors.csv generated")

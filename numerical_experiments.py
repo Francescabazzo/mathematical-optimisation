@@ -172,12 +172,12 @@ def run_iterations(size_mentees, size_mentors, n_replications=1000):
         score_h5, matching_h5, time_h5 = run_heuristic(mentees, mentors, matching_criteria_5, weights_LP1)
         score_h6, matching_h6, time_h6 = run_heuristic(mentees, mentors, matching_criteria_6, weights_LP1)
         
-        mean_h1 = compute_mean_score(matching_h1)
-        mean_h2 = compute_mean_score(matching_h2)
-        mean_h3 = compute_mean_score(matching_h3)
-        mean_h4 = compute_mean_score(matching_h4)
-        mean_h5 = compute_mean_score(matching_h5)
-        mean_h6 = compute_mean_score(matching_h6)
+        mean_h1 = compute_mean_score(matching_h1, n_mentees=size_mentees)
+        mean_h2 = compute_mean_score(matching_h2, n_mentees=size_mentees)
+        mean_h3 = compute_mean_score(matching_h3, n_mentees=size_mentees)
+        mean_h4 = compute_mean_score(matching_h4, n_mentees=size_mentees)
+        mean_h5 = compute_mean_score(matching_h5, n_mentees=size_mentees)
+        mean_h6 = compute_mean_score(matching_h6, n_mentees=size_mentees)
 
         #   Linear programming 
         if size_mentees > size_mentors:
@@ -195,12 +195,12 @@ def run_iterations(size_mentees, size_mentors, n_replications=1000):
             Z_lp5, matching_lp5, time_lp5 = run_linear_programming(mentees, mentors, weights_LP5)
             Z_lp6, matching_lp6, time_lp6 = run_linear_programming(mentees, mentors, weights_LP6)
         
-        mean_lp1 = compute_mean_score(matching_lp1)
-        mean_lp2 = compute_mean_score(matching_lp2)
-        mean_lp3 = compute_mean_score(matching_lp3)
-        mean_lp4 = compute_mean_score(matching_lp4)
-        mean_lp5 = compute_mean_score(matching_lp5)
-        mean_lp6 = compute_mean_score(matching_lp6)
+        mean_lp1 = compute_mean_score(matching_lp1, n_mentees=size_mentees)
+        mean_lp2 = compute_mean_score(matching_lp2, n_mentees=size_mentees)
+        mean_lp3 = compute_mean_score(matching_lp3, n_mentees=size_mentees)
+        mean_lp4 = compute_mean_score(matching_lp4, n_mentees=size_mentees)
+        mean_lp5 = compute_mean_score(matching_lp5, n_mentees=size_mentees)
+        mean_lp6 = compute_mean_score(matching_lp6, n_mentees=size_mentees)
 
         # Save results 
         if size_mentees <= 50: 
@@ -273,25 +273,26 @@ def run_iterations(size_mentees, size_mentors, n_replications=1000):
 # ============================================
 
 #   |S|=|M|=20
-run_iterations(20, 20, 100)
+run_iterations(20, 18, 100)
 
-#   |S|=|M|=100
+"""#   |S|=|M|=100
 run_iterations(100, 100, 100)
 
 #   |S|=|M|=250
-run_iterations(250, 250, 100)
+run_iterations(250, 250, 100)"""
 
 
 # ============================================
 # Summary statistics 
 # ============================================
 
+methods = ["RB1_mean", "RB2_mean", "RB3_mean", "RB4_mean", "RB5_mean", "RB6_mean",
+           "LP1_mean", "LP2_mean", "LP3_mean", "LP4_mean", "LP5_mean", "LP6_mean"]
+
+
 #   SMALL dataset 
 
 df_small = pd.DataFrame(results_small)
-
-methods = ["RB1_mean", "RB2_mean", "RB3_mean", "RB4_mean", "RB5_mean", "RB6_mean",
-           "LP1_mean", "LP2_mean", "LP3_mean", "LP4_mean", "LP5_mean", "LP6_mean"]
 
 #   I create a dataframe where I compute the cumulative values 
 summary_small = pd.DataFrame({
@@ -306,12 +307,9 @@ print("\n==== Results for SMALL dataset (|S|=20) ====")
 print(summary_small.round(3))
 
 
-#   MEDIUM DATASET 
+"""#   MEDIUM DATASET 
 
 df_medium = pd.DataFrame(results_medium)
-
-methods = ["RB1_mean", "RB2_mean", "RB3_mean", "RB4_mean", "RB5_mean", "RB6_mean",
-           "LP1_mean", "LP2_mean", "LP3_mean", "LP4_mean", "LP5_mean", "LP6_mean"]
 
 #   Dataframe where I compute the cumulative values 
 summary_medium = pd.DataFrame({
@@ -330,9 +328,6 @@ print(summary_medium.round(3))
 
 df_large = pd.DataFrame(results_large)
 
-methods = ["RB1_mean", "RB2_mean", "RB3_mean", "RB4_mean", "RB5_mean", "RB6_mean",
-           "LP1_mean", "LP2_mean", "LP3_mean", "LP4_mean", "LP5_mean", "LP6_mean"]
-
 #   Dataframe where I compute the cumulative values 
 summary_large = pd.DataFrame({
     "Mean": df_large[methods].mean(),
@@ -343,4 +338,4 @@ summary_large = pd.DataFrame({
 summary_large = summary_large.reset_index().rename(columns={"index": "Method"})
 
 print("\n==== Results for LARGE dataset (|S|=250) ====")
-print(summary_large.round(3))
+print(summary_large.round(3))"""

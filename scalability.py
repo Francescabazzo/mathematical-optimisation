@@ -66,13 +66,13 @@ for size in sizes:
     # LP1
     Z_lp1, match_lp1, time_lp1 = run_linear_programming(mentees, mentors, weights_LP1)
     total_lp1 = compute_total_score(match_lp1)
-    mean_lp1 = compute_mean_score(match_lp1)
+    mean_lp1 = compute_mean_score(match_lp1, n_mentees=size)
     print(f" -> LP1 completed for size {size}")
 
     # LP2
     Z_lp2, match_lp2, time_lp2 = run_linear_programming(mentees, mentors, weights_LP2)
     total_lp2 = compute_total_score(match_lp2)
-    mean_lp2 = compute_mean_score(match_lp2)
+    mean_lp2 = compute_mean_score(match_lp2, n_mentees=size)
     print(f" -> LP2 completed for size {size}")
 
 
@@ -80,14 +80,14 @@ for size in sizes:
     total_rbi, match_rbi, time_rbi = run_heuristic(
         mentees, mentors, matching_criteria_1, weights_LP1, steps_with_filtering_1
     )
-    mean_rbi = compute_mean_score(match_rbi)
+    mean_rbi = compute_mean_score(match_rbi, n_mentees=size)
     print(f" -> RBi completed for size {size}")
 
     # RBii
     total_rbii, match_rbii, time_rbii = run_heuristic(
         mentees, mentors, matching_criteria=matching_criteria_2, weights=weights_LP1
     )
-    mean_rbii = compute_mean_score(match_rbii)
+    mean_rbii = compute_mean_score(match_rbii, n_mentees=size)
     print(f" -> RBii completed for size {size}")
 
     # Store results
